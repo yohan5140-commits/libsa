@@ -6,11 +6,13 @@ import PopularBookList from './components/PopularBookList';
 const DEFAULT_LIB_CODE = '149016';
 const DEFAULT_START_DT = '2026-01-01';
 const DEFAULT_END_DT = '2026-07-31';
+const DEFAULT_PAGE_SIZE = 50;
 
 interface Query {
   libCode: string;
   startDt: string;
   endDt: string;
+  pageSize: number;
 }
 
 export default function App() {
@@ -21,6 +23,7 @@ export default function App() {
     libCode: DEFAULT_LIB_CODE,
     startDt: DEFAULT_START_DT,
     endDt: DEFAULT_END_DT,
+    pageSize: DEFAULT_PAGE_SIZE,
   });
   const [books, setBooks] = useState<PopularBook[]>([]);
   const [resolvedRange, setResolvedRange] = useState<{ startDt: string | null; endDt: string | null }>({
@@ -60,6 +63,7 @@ export default function App() {
       libCode: libCodeInput.trim() || DEFAULT_LIB_CODE,
       startDt: startDtInput || DEFAULT_START_DT,
       endDt: endDtInput || DEFAULT_END_DT,
+      pageSize: DEFAULT_PAGE_SIZE,
     });
   };
 
