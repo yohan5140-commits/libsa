@@ -6,7 +6,7 @@ import PopularBookList from './components/PopularBookList';
 const DEFAULT_LIB_CODE = '149016';
 const DEFAULT_START_DT = '2026-01-01';
 const DEFAULT_END_DT = '2026-07-31';
-const DEFAULT_PAGE_SIZE = 50;
+const DEFAULT_PAGE_SIZE = 100;
 
 interface Query {
   libCode: string;
