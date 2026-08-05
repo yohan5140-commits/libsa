@@ -12,8 +12,8 @@ export default function PopularBookList({ books }: Props) {
   return (
     <ul className="book-list">
       {books.map((book) => (
-        <li key={`${book.ranking}-${book.isbn13 ?? book.title}`} className="book-card">
-          <span className="rank">{book.ranking}</span>
+        <li key={`${book.order}-${book.isbn13 ?? book.title}`} className="book-card">
+          <span className="rank">{book.order}</span>
           <img
             className="cover"
             src={book.bookImageUrl ?? undefined}

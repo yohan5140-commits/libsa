@@ -1,7 +1,7 @@
 package com.libsa.backend.popularbook.dto;
 
 public record PopularBookDto(
-        int ranking,
+        int order,
         String title,
         String authors,
         String publisher,

@@ -10,6 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 @Service
 public class PopularBookService {
@@ -62,12 +63,15 @@ public class PopularBookService {
                             + apiResponse.response().error());
         }
 
-        List<PopularBookDto> books = apiResponse.response().docs() == null
+        List<Data4LibraryApiResponse.Doc> docs = apiResponse.response().docs() == null
                 ? List.of()
                 : apiResponse.response().docs().stream()
                 .map(Data4LibraryApiResponse.DocWrapper::doc)
                 .filter(Objects::nonNull)
-                .map(this::toDto)
+                .toList();
+
+        List<PopularBookDto> books = IntStream.range(0, docs.size())
+                .mapToObj(i -> toDto(docs.get(i), i + 1))
                 .toList();
 
         int resultNum = apiResponse.response().resultNum() == null ? books.size() : apiResponse.response().resultNum();
@@ -78,9 +82,9 @@ public class PopularBookService {
         return new PopularBookListResponse(resolvedLibCode, resolvedStartDt, resolvedEndDt, resultNum, books);
     }
 
-    private PopularBookDto toDto(Data4LibraryApiResponse.Doc doc) {
+    private PopularBookDto toDto(Data4LibraryApiResponse.Doc doc, int order) {
         return new PopularBookDto(
-                parseIntSafely(doc.ranking()),
+                order,
                 doc.bookname() == null ? "" : doc.bookname().trim(),
                 doc.authors() == null ? "" : doc.authors().trim(),
                 doc.publisher() == null ? "" : doc.publisher().trim(),
@@ -90,14 +94,6 @@ public class PopularBookService {
                 doc.bookImageUrl(),
                 doc.bookDetailUrl()
         );
-    }
-
-    private int parseIntSafely(String value) {
-        try {
-            return value == null ? 0 : Integer.parseInt(value.trim());
-        } catch (NumberFormatException e) {
-            return 0;
-        }
     }
 
     private Long parseLongOrNull(String value) {

@@ -54,7 +54,7 @@ GET /api/popular-books?libCode=149016&pageSize=30&startDt=2026-01-01&endDt=2026-
   "resultNum": 30,
   "books": [
     {
-      "ranking": 1,
+      "order": 1,
       "title": "책 제목",
       "authors": "저자",
       "publisher": "출판사",
@@ -70,6 +70,9 @@ GET /api/popular-books?libCode=149016&pageSize=30&startDt=2026-01-01&endDt=2026-
 
 > `loanItemSrchByLib`는 `loan_count`(대출횟수) 필드를 내려주지 않으므로 항상 `null`입니다.
 > 응답의 `startDt`/`endDt`는 data4library.kr이 실제로 적용한(자동 보정 포함) 값입니다.
+> `order`는 목록 내 1부터 시작하는 순번입니다. 원본 API의 `ranking`(대출횟수 동률 시 공동
+> 순위, 예: 11위가 14권이면 다음은 25위)과 달리 항상 연속된 숫자를 매겨 화면에 순위 번호가
+> 뚝뚝 끊겨 보이지 않도록 합니다.
 
 ## 프런트엔드 실행
 

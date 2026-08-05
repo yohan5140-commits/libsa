@@ -1,5 +1,5 @@
 export interface PopularBook {
-  ranking: number;
+  order: number;
   title: string;
   authors: string;
   publisher: string;
