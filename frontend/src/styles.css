@@ -1,0 +1,159 @@
+:root {
+  color-scheme: light dark;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Pretendard, Roboto, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f5f5f7;
+  color: #1a1a1a;
+}
+
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.lib-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.lib-form label {
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.lib-form input {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.lib-form input#libCode {
+  width: 6rem;
+}
+
+.lib-form input[type='date'] {
+  width: 9.5rem;
+}
+
+.lib-form button {
+  padding: 0.4rem 0.9rem;
+  border: none;
+  border-radius: 6px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.range-note {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+.status {
+  color: #666;
+}
+
+.status.error {
+  color: #c0392b;
+}
+
+.book-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.book-card {
+  display: flex;
+  gap: 0.9rem;
+  background: white;
+  border-radius: 10px;
+  padding: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  align-items: center;
+}
+
+.rank {
+  font-weight: 700;
+  font-size: 1.1rem;
+  width: 1.8rem;
+  text-align: center;
+  color: #2563eb;
+  flex-shrink: 0;
+}
+
+.cover {
+  width: 56px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+  background: #eee;
+  flex-shrink: 0;
+}
+
+.info {
+  min-width: 0;
+}
+
+.title {
+  font-weight: 600;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.title:hover {
+  text-decoration: underline;
+}
+
+.meta {
+  margin: 0.25rem 0;
+  font-size: 0.85rem;
+  color: #555;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.loan-count {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #888;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #121212;
+    color: #eee;
+  }
+
+  .book-card {
+    background: #1e1e1e;
+    box-shadow: none;
+  }
+
+  .title {
+    color: #eee;
+  }
+
+  .lib-form input {
+    background: #1e1e1e;
+    color: #eee;
+    border-color: #444;
+  }
+}

@@ -1,0 +1,25 @@
+# Backend (Gradle / Java)
+backend/build/
+backend/.gradle/
+backend/out/
+backend/*.log
+backend/src/main/resources/application-local.yml
+
+# Frontend (Node / Vite)
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/*.log
+frontend/.env
+frontend/.env.local
+frontend/*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# OS
+.DS_Store

@@ -1,0 +1,11 @@
+server:
+  port: 8080
+
+data4library:
+  base-url: https://data4library.kr/api
+  auth-key: ${DATA4LIBRARY_AUTH_KEY:}
+  default-lib-code: 149016
+
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}
