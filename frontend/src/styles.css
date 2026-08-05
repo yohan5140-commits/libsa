@@ -22,16 +22,29 @@ h1 {
 
 .lib-form {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.lib-form label {
+  font-size: 0.85rem;
+  color: #555;
 }
 
 .lib-form input {
   padding: 0.4rem 0.6rem;
   border: 1px solid #ccc;
   border-radius: 6px;
-  width: 8rem;
+}
+
+.lib-form input#libCode {
+  width: 6rem;
+}
+
+.lib-form input[type='date'] {
+  width: 9.5rem;
 }
 
 .lib-form button {
@@ -41,6 +54,12 @@ h1 {
   background: #2563eb;
   color: white;
   cursor: pointer;
+}
+
+.range-note {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  color: #888;
 }
 
 .status {

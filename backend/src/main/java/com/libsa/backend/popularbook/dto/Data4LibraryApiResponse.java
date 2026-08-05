@@ -10,6 +10,7 @@ public record Data4LibraryApiResponse(@JsonProperty("response") ResponseBody res
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public record ResponseBody(
+            @JsonProperty("request") RequestInfo request,
             @JsonProperty("resultNum") Integer resultNum,
             @JsonProperty("numFound") Integer numFound,
             @JsonProperty("pageNo") Integer pageNo,
@@ -17,6 +18,13 @@ public record Data4LibraryApiResponse(@JsonProperty("response") ResponseBody res
             @JsonProperty("docs") List<DocWrapper> docs,
             @JsonProperty("errCode") String errCode,
             @JsonProperty("error") String error
+    ) {
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public record RequestInfo(
+            @JsonProperty("startDt") String startDt,
+            @JsonProperty("endDt") String endDt
     ) {
     }
 

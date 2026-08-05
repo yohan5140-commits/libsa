@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,29 +22,38 @@ public class PopularBookService {
         this.properties = properties;
     }
 
-    public PopularBookListResponse getPopularBooks(String libCode, int pageSize) {
+    public PopularBookListResponse getPopularBooks(String libCode, int pageSize, LocalDate startDt, LocalDate endDt) {
         if (properties.authKey() == null || properties.authKey().isBlank()) {
             throw new Data4LibraryConfigurationException(
                     "data4library.auth-key is not configured. Set the DATA4LIBRARY_AUTH_KEY environment variable.");
         }
 
+        if (startDt != null && endDt != null && startDt.isAfter(endDt)) {
+            throw new IllegalArgumentException("startDt must not be after endDt");
+        }
+
         String resolvedLibCode = (libCode == null || libCode.isBlank()) ? properties.defaultLibCode() : libCode;
 
-        String uri = UriComponentsBuilder.fromPath("/loanItemSrchByLib")
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromPath("/loanItemSrchByLib")
                 .queryParam("authKey", properties.authKey())
                 .queryParam("libCode", resolvedLibCode)
                 .queryParam("pageSize", pageSize)
-                .queryParam("format", "json")
-                .build()
-                .toUriString();
+                .queryParam("format", "json");
+
+        if (startDt != null) {
+            uriBuilder.queryParam("startDt", startDt);
+        }
+        if (endDt != null) {
+            uriBuilder.queryParam("endDt", endDt);
+        }
 
         Data4LibraryApiResponse apiResponse = restClient.get()
-                .uri(uri)
+                .uri(uriBuilder.build().toUriString())
                 .retrieve()
                 .body(Data4LibraryApiResponse.class);
 
         if (apiResponse == null || apiResponse.response() == null) {
-            return new PopularBookListResponse(resolvedLibCode, 0, List.of());
+            return new PopularBookListResponse(resolvedLibCode, null, null, 0, List.of());
         }
 
         if (apiResponse.response().errCode() != null) {
@@ -61,8 +71,11 @@ public class PopularBookService {
                 .toList();
 
         int resultNum = apiResponse.response().resultNum() == null ? books.size() : apiResponse.response().resultNum();
+        Data4LibraryApiResponse.RequestInfo requestInfo = apiResponse.response().request();
+        String resolvedStartDt = requestInfo == null ? null : requestInfo.startDt();
+        String resolvedEndDt = requestInfo == null ? null : requestInfo.endDt();
 
-        return new PopularBookListResponse(resolvedLibCode, resultNum, books);
+        return new PopularBookListResponse(resolvedLibCode, resolvedStartDt, resolvedEndDt, resultNum, books);
     }
 
     private PopularBookDto toDto(Data4LibraryApiResponse.Doc doc) {

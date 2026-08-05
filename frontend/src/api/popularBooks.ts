@@ -1,7 +1,22 @@
 import type { PopularBookListResponse } from '../types/PopularBook';
 
-export async function fetchPopularBooks(libCode: string, pageSize = 30): Promise<PopularBookListResponse> {
+export interface PopularBooksQuery {
+  libCode: string;
+  pageSize?: number;
+  startDt?: string;
+  endDt?: string;
+}
+
+export async function fetchPopularBooks({
+  libCode,
+  pageSize = 30,
+  startDt,
+  endDt,
+}: PopularBooksQuery): Promise<PopularBookListResponse> {
   const params = new URLSearchParams({ libCode, pageSize: String(pageSize) });
+  if (startDt) params.set('startDt', startDt);
+  if (endDt) params.set('endDt', endDt);
+
   const res = await fetch(`/api/popular-books?${params.toString()}`);
 
   if (!res.ok) {

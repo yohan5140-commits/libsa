@@ -34,12 +34,23 @@ export DATA4LIBRARY_AUTH_KEY=발급받은인증키
 ### API
 
 ```
-GET /api/popular-books?libCode=149016&pageSize=30
+GET /api/popular-books?libCode=149016&pageSize=30&startDt=2026-01-01&endDt=2026-07-31
 ```
+
+| 파라미터 | 필수 | 설명 |
+| --- | --- | --- |
+| `libCode` | 아니오 | 도서관 코드. 없으면 `data4library.default-lib-code`(기본 `149016`) 사용 |
+| `pageSize` | 아니오 | 1~100, 기본 30 |
+| `startDt` | 아니오 | 대출기간 시작일 (`yyyy-MM-dd`). 없으면 data4library.kr 기본값(2014-01-01) 적용 |
+| `endDt` | 아니오 | 대출기간 종료일 (`yyyy-MM-dd`). 없으면 조회일 하루 전으로 자동 설정 |
+
+`startDt`가 `endDt`보다 늦으면 `400 Bad Request`를 반환합니다.
 
 ```json
 {
   "libCode": "149016",
+  "startDt": "2026-01-01",
+  "endDt": "2026-07-31",
   "resultNum": 30,
   "books": [
     {
@@ -49,13 +60,16 @@ GET /api/popular-books?libCode=149016&pageSize=30
       "publisher": "출판사",
       "publicationYear": "2024",
       "isbn13": "9791100000000",
-      "loanCount": 123,
+      "loanCount": null,
       "bookImageUrl": "https://...",
       "bookDetailUrl": "https://..."
     }
   ]
 }
 ```
+
+> `loanItemSrchByLib`는 `loan_count`(대출횟수) 필드를 내려주지 않으므로 항상 `null`입니다.
+> 응답의 `startDt`/`endDt`는 data4library.kr이 실제로 적용한(자동 보정 포함) 값입니다.
 
 ## 프런트엔드 실행
 

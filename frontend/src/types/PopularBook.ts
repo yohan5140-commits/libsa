@@ -12,6 +12,8 @@ export interface PopularBook {
 
 export interface PopularBookListResponse {
   libCode: string;
+  startDt: string | null;
+  endDt: string | null;
   resultNum: number;
   books: PopularBook[];
 }
