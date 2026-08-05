@@ -46,6 +46,12 @@ public class PopularBookService {
             return new PopularBookListResponse(resolvedLibCode, 0, List.of());
         }
 
+        if (apiResponse.response().errCode() != null) {
+            throw new Data4LibraryUpstreamException(
+                    "data4library.kr API error [" + apiResponse.response().errCode() + "]: "
+                            + apiResponse.response().error());
+        }
+
         List<PopularBookDto> books = apiResponse.response().docs() == null
                 ? List.of()
                 : apiResponse.response().docs().stream()

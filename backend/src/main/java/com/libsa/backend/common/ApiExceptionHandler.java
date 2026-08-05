@@ -1,6 +1,7 @@
 package com.libsa.backend.common;
 
 import com.libsa.backend.popularbook.Data4LibraryConfigurationException;
+import com.libsa.backend.popularbook.Data4LibraryUpstreamException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -16,6 +17,11 @@ public class ApiExceptionHandler {
     @ExceptionHandler(Data4LibraryConfigurationException.class)
     public ResponseEntity<Map<String, Object>> handleConfiguration(Data4LibraryConfigurationException ex) {
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(errorBody(ex.getMessage()));
+    }
+
+    @ExceptionHandler(Data4LibraryUpstreamException.class)
+    public ResponseEntity<Map<String, Object>> handleUpstreamError(Data4LibraryUpstreamException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(errorBody(ex.getMessage()));
     }
 
     @ExceptionHandler(RestClientResponseException.class)

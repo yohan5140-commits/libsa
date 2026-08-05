@@ -14,7 +14,9 @@ public record Data4LibraryApiResponse(@JsonProperty("response") ResponseBody res
             @JsonProperty("numFound") Integer numFound,
             @JsonProperty("pageNo") Integer pageNo,
             @JsonProperty("pageSize") Integer pageSize,
-            @JsonProperty("docs") List<DocWrapper> docs
+            @JsonProperty("docs") List<DocWrapper> docs,
+            @JsonProperty("errCode") String errCode,
+            @JsonProperty("error") String error
     ) {
     }
 
