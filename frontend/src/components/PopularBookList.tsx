@@ -35,7 +35,9 @@ export default function PopularBookList({ books }: Props) {
             <p className="meta">
               {book.authors} · {book.publisher} {book.publicationYear ? `(${book.publicationYear})` : ''}
             </p>
-            <p className="loan-count">대출 {book.loanCount.toLocaleString()}회</p>
+            {book.loanCount != null && (
+              <p className="loan-count">대출 {book.loanCount.toLocaleString()}회</p>
+            )}
           </div>
         </li>
       ))}

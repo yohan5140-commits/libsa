@@ -73,7 +73,7 @@ public class PopularBookService {
                 doc.publisher() == null ? "" : doc.publisher().trim(),
                 doc.publicationYear(),
                 doc.isbn13(),
-                parseLongSafely(doc.loanCount()),
+                parseLongOrNull(doc.loanCount()),
                 doc.bookImageUrl(),
                 doc.bookDetailUrl()
         );
@@ -87,11 +87,14 @@ public class PopularBookService {
         }
     }
 
-    private long parseLongSafely(String value) {
+    private Long parseLongOrNull(String value) {
+        if (value == null || value.isBlank()) {
+            return null;
+        }
         try {
-            return value == null ? 0L : Long.parseLong(value.trim());
+            return Long.parseLong(value.trim());
         } catch (NumberFormatException e) {
-            return 0L;
+            return null;
         }
     }
 }

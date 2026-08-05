@@ -5,7 +5,7 @@ export interface PopularBook {
   publisher: string;
   publicationYear: string | null;
   isbn13: string | null;
-  loanCount: number;
+  loanCount: number | null;
   bookImageUrl: string | null;
   bookDetailUrl: string | null;
 }

@@ -7,7 +7,7 @@ public record PopularBookDto(
         String publisher,
         String publicationYear,
         String isbn13,
-        long loanCount,
+        Long loanCount,
         String bookImageUrl,
         String bookDetailUrl
 ) {
